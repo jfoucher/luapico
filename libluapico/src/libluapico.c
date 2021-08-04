@@ -298,6 +298,28 @@ int luapico_stat (lua_State *L)
   return 1;
   }
 
+
+/*=========================================================================
+
+  luapico_puts
+
+=========================================================================*/
+int luapico_puts (lua_State *L)
+  {
+  int t = lua_gettop (L);
+
+  if (t == 1)
+    {
+    const char *chr = luaL_checkstring (L, 1);
+    interface_write_char(*chr);
+    }
+  else
+    luaL_error (L, "Usage: pico.puts (character)");
+    
+  return 0; 
+  }
+
+
 /*=========================================================================
 
   luapico_gpio_set_dir
@@ -662,6 +684,7 @@ static const luaL_Reg picolib[] =
   {"rm", luapico_rm},
   {"read", luapico_read},
   {"write", luapico_write},
+  {"puts", luapico_puts},
   {"mkdir", luapico_mkdir},
   {"stat", luapico_stat},
   {"gpio_set_dir", luapico_gpio_set_dir},
